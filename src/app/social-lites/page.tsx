@@ -28,8 +28,8 @@ export default function SocialLitesPage() {
             Your Link in Bio, But Better ✨
           </p>
           <p className="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-            Stop renting your link from Linktree. Get a professional single-page website 
-            on YOUR domain in 48 hours. Mobile-optimized, contact form, Google Maps, 
+            Stop renting your link from Linktree. Get a professional single-page website
+            on YOUR domain in 48 hours. Mobile-optimized, contact form, Google Maps,
             and Shopify-ready — everything included.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -62,6 +62,7 @@ export default function SocialLitesPage() {
               { icon: '⚡', title: '48-Hour Launch', desc: 'From signup to live in just 2 business days' },
               { icon: '📧', title: 'Contact Form', desc: 'Let customers reach you instantly' },
               { icon: '🗺️', title: 'Google Maps', desc: 'Show customers where to find you' },
+              { icon: '📊', title: 'Analytics Ready', desc: 'Track visitors and optimize conversions' },
             ].map((feature, i) => (
               <div key={i} className="p-6 bg-gray-50 rounded-lg">
                 <div className="text-4xl mb-4">{feature.icon}</div>
@@ -72,7 +73,7 @@ export default function SocialLitesPage() {
           </div>
           <div className="mt-12 p-6 bg-indigo-50 border border-indigo-200 rounded-lg text-center">
             <p className="text-indigo-900">
-              <strong>💡 Grow with us:</strong> Start with Social-Lites, upgrade to a full multi-page website anytime. 
+              <strong>💡 Grow with us:</strong> Start with Social-Lites, upgrade to a full multi-page website anytime.
               Your content migrates seamlessly.
             </p>
           </div>
@@ -209,7 +210,8 @@ export default function SocialLitesPage() {
                 <div className="text-sm text-gray-500 mt-2">or €147 upfront (3 months)</div>
               </div>
               <ul className="space-y-4 mb-8">
-                {[n                  'Single-page professional website',
+                {[
+                  'Single-page professional website',
                   'Your own domain (not a subdomain)',
                   'Mobile-optimized design',
                   'Contact form integration',
