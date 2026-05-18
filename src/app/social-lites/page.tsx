@@ -8,8 +8,12 @@ export default function SocialLitesPage() {
       {/* Header */}
       <header className="border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-6">
-          <Link href="/" className="text-3xl font-bold text-gray-900">
-            Social-Lites
+          <Link href="/" className="inline-block">
+            <img
+              src="/social-lites-logo.svg"
+              alt="Social-Lites Logo"
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
       </header>
@@ -24,7 +28,7 @@ export default function SocialLitesPage() {
             Your Link in Bio, But Better ✨
           </p>
           <p className="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
-            Stop renting your link from Linktree. Get a professional 2-3 page website 
+            Stop renting your link from Linktree. Get a professional single-page website 
             on YOUR domain in 48 hours. Mobile-optimized, contact form, Google Maps, 
             and Shopify-ready — everything included.
           </p>
@@ -56,7 +60,6 @@ export default function SocialLitesPage() {
               { icon: '🌐', title: 'Your Own Domain', desc: 'Not a subdomain. Not Linktree. YourBrand.com' },
               { icon: '📱', title: 'Mobile-Optimized', desc: 'Looks perfect on phones, tablets, and desktops' },
               { icon: '⚡', title: '48-Hour Launch', desc: 'From signup to live in just 2 business days' },
-              { icon: '🛒', title: 'Shopify Ready', desc: 'Seamless integration with your Shopify store' },
               { icon: '📧', title: 'Contact Form', desc: 'Let customers reach you instantly' },
               { icon: '🗺️', title: 'Google Maps', desc: 'Show customers where to find you' },
             ].map((feature, i) => (
@@ -169,7 +172,7 @@ export default function SocialLitesPage() {
           <div className="grid md:grid-cols-4 gap-8">
             {[
               { step: '1', title: 'Sign Up', desc: 'Choose your plan and share your brand details' },
-              { step: '2', title: 'We Build', desc: 'Professional 2-3 page website in 48 hours' },
+              { step: '2', title: 'We Build', desc: 'Professional single-page website in 48 hours' },
               { step: '3', title: 'Review', desc: 'Preview and request any changes' },
               { step: '4', title: 'Launch', desc: 'Go live with your own domain and start selling' },
             ].map((item, i) => (
@@ -206,8 +209,7 @@ export default function SocialLitesPage() {
                 <div className="text-sm text-gray-500 mt-2">or €147 upfront (3 months)</div>
               </div>
               <ul className="space-y-4 mb-8">
-                {[
-                  '2-3 page professional website',
+                {[n                  'Single-page professional website',
                   'Your own domain (not a subdomain)',
                   'Mobile-optimized design',
                   'Contact form integration',
