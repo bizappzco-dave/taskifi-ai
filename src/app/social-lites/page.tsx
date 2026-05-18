@@ -8,8 +8,8 @@ export default function SocialLitesPage() {
       {/* Header */}
       <header className="border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-6">
-          <Link href="/" className="text-2xl font-semibold text-gray-900">
-            TaskifiAI
+          <Link href="/" className="text-3xl font-bold text-gray-900">
+            Social-Lites
           </Link>
         </div>
       </header>
@@ -66,6 +66,12 @@ export default function SocialLitesPage() {
                 <p className="text-gray-600">{feature.desc}</p>
               </div>
             ))}
+          </div>
+          <div className="mt-12 p-6 bg-indigo-50 border border-indigo-200 rounded-lg text-center">
+            <p className="text-indigo-900">
+              <strong>💡 Grow with us:</strong> Start with Social-Lites, upgrade to a full multi-page website anytime. 
+              Your content migrates seamlessly.
+            </p>
           </div>
         </div>
       </section>
@@ -252,6 +258,10 @@ export default function SocialLitesPage() {
               {
                 q: 'Can I integrate my Shopify store?',
                 a: 'Yes! Social-Lites seamlessly integrates with Shopify. You can link to products, use Shopify Buy Buttons, or direct traffic to your Shopify store. We handle the setup.'
+              },
+              {
+                q: 'Can I upgrade to a full website later?',
+                a: 'Absolutely! Social-Lites is designed to grow with you. When you\'re ready for more pages, blog, or advanced features, we\'ll migrate everything to a full TaskifiAI website. Your domain, content, and SEO rankings all transfer seamlessly.'
               },
               {
                 q: 'What if I want changes after launch?',
