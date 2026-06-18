@@ -5,6 +5,9 @@ import { useState } from 'react'
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [formState, setFormState] = useState<{
+    name: string; business: string; email: string; service: string; submitting: boolean; submitted: boolean; error: string
+  }>({ name: '', business: '', email: '', service: '', submitting: false, submitted: false, error: '' })
 
   return (
     <div className="min-h-screen bg-white">
@@ -19,8 +22,8 @@ export default function Home() {
             
             <div className="hidden md:flex items-center gap-8">
               <a href="#products" className="text-gray-600 hover:text-gray-900">Products</a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-900">Pricing</a>
-              <a href="#about" className="text-gray-600 hover:text-gray-900">About</a>
+              <a href="/faq" className="text-gray-600 hover:text-gray-900">FAQ</a>
+              <a href="/about" className="text-gray-600 hover:text-gray-900">About</a>
               <a href="#contact" className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">
                 Get Started
               </a>
@@ -40,8 +43,8 @@ export default function Home() {
           <div className="md:hidden border-t border-gray-100">
             <div className="px-4 py-4 space-y-4">
               <a href="#products" className="block text-gray-600 hover:text-gray-900">Products</a>
-              <a href="#pricing" className="block text-gray-600 hover:text-gray-900">Pricing</a>
-              <a href="#about" className="block text-gray-600 hover:text-gray-900">About</a>
+              <a href="/faq" className="block text-gray-600 hover:text-gray-900">FAQ</a>
+              <a href="/about" className="block text-gray-600 hover:text-gray-900">About</a>
               <a href="#contact" className="block bg-blue-600 text-white px-4 py-2 rounded-lg font-medium">
                 Get Started
               </a>
@@ -498,11 +501,43 @@ export default function Home() {
               </div>
             </div>
             
-            <form className="space-y-4">
+            {formState.submitted ? (
+              <div className="text-center py-8">
+                <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                <p className="text-gray-600">We'll get back to you within 24 hours.</p>
+              </div>
+            ) : (
+            <form onSubmit={async (e) => {
+              e.preventDefault()
+              setFormState(prev => ({ ...prev, submitting: true, error: '' }))
+              try {
+                const res = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name: formState.name,
+                    business: formState.business,
+                    email: formState.email,
+                    service: formState.service,
+                  }),
+                })
+                if (res.ok) {
+                  setFormState(prev => ({ ...prev, submitted: true, submitting: false }))
+                } else {
+                  setFormState(prev => ({ ...prev, error: 'Failed to send. Please try again.', submitting: false }))
+                }
+              } catch {
+                setFormState(prev => ({ ...prev, error: 'Network error. Please try again.', submitting: false }))
+              }
+            }} className="space-y-4">
               <div>
                 <input
                   type="text"
+                  required
                   placeholder="Your Name"
+                  value={formState.name}
+                  onChange={e => setFormState(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
@@ -510,34 +545,49 @@ export default function Home() {
                 <input
                   type="text"
                   placeholder="Business Name"
+                  value={formState.business}
+                  onChange={e => setFormState(prev => ({ ...prev, business: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
                 <input
                   type="email"
+                  required
                   placeholder="Email Address"
+                  value={formState.email}
+                  onChange={e => setFormState(prev => ({ ...prev, email: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
-                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <select
+                  value={formState.service}
+                  onChange={e => setFormState(prev => ({ ...prev, service: e.target.value }))}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
                   <option value="">Interested in...</option>
                   <option value="lite-sites">Lite-Sites (€49/mo) - New Website</option>
                   <option value="migration">Site Migration (€199 + €49/mo) - Replace Old Site</option>
                   <option value="maps">Maps 3-Pack (€99/mo + €299 setup)</option>
                   <option value="socialdrive">Social-Drive AI (€29/mo)</option>
+                  <option value="socialchats">Social-Chats AI (€79/mo)</option>
                   <option value="bundle-lite-maps">Lite-Sites + Maps (€129/mo)</option>
                   <option value="bundle-all">Complete Bundle (€159/mo) - Best Value</option>
                 </select>
               </div>
+              {formState.error && (
+                <p className="text-red-500 text-sm">{formState.error}</p>
+              )}
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors"
+                disabled={formState.submitting}
+                className="w-full bg-blue-600 text-white px-6 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Get Started - €0 Setup on Lite-Sites
+                {formState.submitting ? 'Sending...' : 'Get Started - €0 Setup on Lite-Sites'}
               </button>
             </form>
+            )}
             <p className="text-gray-500 text-sm mt-4">
               We'll contact you within 24 hours to get started.
             </p>
@@ -557,9 +607,9 @@ export default function Home() {
               © 2026 TaskifiAI. Simple solutions for local businesses.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-400 hover:text-white text-sm">Privacy</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm">Terms</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm">Contact</a>
+              <a href="/privacy" className="text-gray-400 hover:text-white text-sm">Privacy</a>
+              <a href="/terms" className="text-gray-400 hover:text-white text-sm">Terms</a>
+              <a href="/about" className="text-gray-400 hover:text-white text-sm">Contact</a>
             </div>
           </div>
         </div>
